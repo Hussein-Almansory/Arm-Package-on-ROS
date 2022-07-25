@@ -1,6 +1,6 @@
 # Arm-Package-on-ROS
 
-### introduction:
+## introduction:
 _Plans and motions for a robot arm can be planned 
 and carried out using ROS packages, both in simulation and 
 in real life.These packages have been tested with Ubuntu 20 
