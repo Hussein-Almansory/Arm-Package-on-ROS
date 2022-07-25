@@ -7,14 +7,12 @@ _Plans and motions for a robot arm can be planned
 and carried out using ROS packages, both in simulation and 
 in real life.These packages have been tested with Ubuntu 20 
 and ROS noetic.The Moveit plugin is used by the robot arm to apply 
-kinematics using the KDL solver. These packages may be
-tested on a real robot arm and in the gazebo simulation 
-tool, where the /joint states' topic is used by the
-Arduino code and the ROS system to control motors._
+kinematics._
 ---
 
 
-### Dependencies
+
+## Dependencies
 run this instruction inside your workspace:
 
 `rosdep install --from-paths src --ignore-src -r -y`
@@ -48,6 +46,30 @@ $ sudo apt-get install ros-noetic-gazebo-ros-control joint-state-publisher
 $ sudo apt-get install ros-noetic-ros-controllers ros-noetic-ros-control
 ```
 ---
+
+
+## Steps:
+1- Insert new folder into your **home** name = "catkin_ws'
+
+![1](https://user-images.githubusercontent.com/65435678/180881663-227b1ab9-d972-46bd-98fa-556bca66229d.png)
+
+
+2- inside "catkin_ws" folder insert new folder name = "src"
+
+![2](https://user-images.githubusercontent.com/65435678/180881674-9ca64533-e374-4f21-8031-5edb7dad62fa.png)
+
+3- Add the "aurduino_robot_arm" package to "src" folder
+
+`$ cd ~/catkin_ws/src`
+
+`$ sudo apt install git`
+
+`$ git clone https://github.com/Hussein-Almansory/Arm-Package-on-ROS.git`
+
+4- After you add it into "src" folder you will see these contents:
+
+![3](https://user-images.githubusercontent.com/65435678/180881676-d8a9949d-92d8-4714-aa0f-d20260c4b4fc.png)
+
 ## Robot Arm
 
 The robot arm has 5 joints only 4 joints 
@@ -62,11 +84,11 @@ motion executed from the Arduino code directly.
 
 * Installing Arduino IDE in Ubuntu is as simple as unzipping the files and running:
   * $ sudo./install.sh.
-* Launch the Arduino IDE
-* Install the arduino package and ros library
-  * http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup
-* Make sure to change the port permission before uploading the Arduino code 
-  * $ sudo chmod 777 /dev/ttyUSB0
+  * Launch the Arduino IDE
+  * Install the arduino package and ros library
+    * http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup
+  * Make sure to change the port permission before uploading the Arduino code 
+    * $ sudo chmod 777 /dev/ttyUSB0
 
 ---
 
@@ -75,19 +97,33 @@ motion executed from the Arduino code directly.
 ### Controlling the robot arm by joint_state_publisher
 ```$ roslaunch robot_arm_pkg check_motors.launch```
 
+***
+
 **if you face this problem same this picture:**
 
 ![probeln](https://user-images.githubusercontent.com/65435678/180662913-2394984d-94e1-4317-9b46-e3064d05eba4.png)
 
-**To solve this problem you have to add code below into your
-.bashrc file same piture:**
+### To solve this problem follow these steps:
 
-![solve](https://user-images.githubusercontent.com/65435678/180662908-73f782a5-9d2d-4e88-af60-5470f9e76261.png)
+### 1) Write this code into your shell:
 
-NOTE : source the catkin_ws folder [ SELECT THE CORRECT PATH WHERE YOU ADD IT]
+![4 0](https://user-images.githubusercontent.com/65435678/180882986-9f63cffd-3f89-4b03-9b76-00c3507f2186.png)
+
+### 2) Insert this code same the picture at the bottom of the "barshrc.sh" file
+
+![4](https://user-images.githubusercontent.com/65435678/180882984-1048d9ac-068a-40f2-ba28-71de9872a8d9.png)
 
 
-#### Simulation
+### NOTE : source the catkin_ws folder [ SELECT THE CORRECT PATH WHERE YOU ADD IT]
+
+### 3) The problem solved and the program run without errors: 
+
+![6](https://user-images.githubusercontent.com/65435678/180883610-6892f7c8-95d0-4514-9c5e-d6c7cb997f1a.png)
+
+***
+
+
+### Simulation
 Run the following instructions to use gazebo
 ```
 $ roslaunch robot_arm_pkg check_motors.launch
@@ -148,15 +184,15 @@ this will run Rviz
 
 - connect with Arduino:
 
-1. select the Arduino port to be used on Ubuntu system
+  1. select the Arduino port to be used on Ubuntu system
 
-2. change the permissions (it might be ttyACM)
+  2. change the permissions (it might be ttyACM)
 
-	```$ ls -l /dev | grep ttyUSB```
+      ```$ ls -l /dev | grep ttyUSB```
   
-	```$ sudo chmod -R 777 /dev/ttyUSB0```
+      ```$ sudo chmod -R 777 /dev/ttyUSB0```
   
-3. upload the code from Arduino IDE
+  3. upload the code from Arduino IDE
 
 ```$ rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200```
 
