@@ -1,7 +1,5 @@
 # Arm-Package-on-ROS
 
-## ~ Tasks:
-
 ### introduction:
 _Plans and motions for a robot arm can be planned 
 and carried out using ROS packages, both in simulation and 
